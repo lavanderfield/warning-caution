@@ -2,18 +2,22 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+
   <meta name="viewport"
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
   <meta name="theme-color" content="#000000">
 
   <title>System Alert</title>
 
   <style>
+
     * {
       box-sizing: border-box;
     }
 
-    html, body {
+    html,
+    body {
       margin: 0;
       width: 100%;
       min-height: 100%;
@@ -26,388 +30,955 @@
       overflow-x: hidden;
     }
 
-    /* TOP SKIP BUTTON */
-    .skip {
-      position: fixed;
-      top: 14px;
-      right: 14px;
-      z-index: 100;
-      padding: 8px 16px;
-      color: #aaa;
-      background: #111;
-      border: 1px solid #555;
-      border-radius: 6px;
-      font-family: inherit;
-      cursor: pointer;
-    }
 
-    .skip:hover {
-      color: white;
-      border-color: white;
-    }
+    /* =====================================
+       FIRST WARNING SCREEN
+    ===================================== */
 
-    /* MAIN WARNING */
     .popup {
-      width: min(90%, 450px);
+      width: 90%;
+      max-width: 450px;
+
       margin: 20vh auto 0;
+
       padding: 25px;
-      text-align: center;
+
       background: #101010;
+
       border: 2px solid #00ff66;
       border-radius: 12px;
-      box-shadow: 0 0 30px rgba(0,255,102,.35);
+
+      text-align: center;
+
+      box-shadow:
+        0 0 30px rgba(0, 255, 102, .35);
     }
 
-    h1 {
+
+    .popup h1 {
       color: #ff3030;
+
       font-size: 27px;
+
       animation: blink .7s infinite;
     }
 
+
     .warning {
       color: white;
+
       line-height: 1.6;
     }
 
+
+    /* =====================================
+       TERMINAL
+    ===================================== */
+
     .terminal {
       margin-top: 20px;
+
       padding: 15px;
+
       text-align: left;
+
       background: #050505;
+
       border-radius: 6px;
+
       color: #00ff66;
+
       font-size: 13px;
+
       line-height: 1.7;
     }
 
+
+    /* =====================================
+       BUTTONS
+    ===================================== */
+
     button {
       padding: 12px 28px;
+
       margin: 10px 5px;
+
       background: transparent;
+
       border: 1px solid #00ff66;
+
       border-radius: 6px;
+
       color: #00ff66;
+
       font-family: inherit;
+
       cursor: pointer;
+
       font-size: 16px;
     }
 
+
     button:hover {
       background: #00ff66;
-      color: black;
+
+      color: #000;
     }
 
-    /* FAKE LCD SCREEN */
-    #blackScreen {
+
+    /* =====================================
+       SKIP BUTTON
+    ===================================== */
+
+    #skipButton {
+
       display: none;
+
       position: fixed;
+
+      top: 15px;
+
+      right: 15px;
+
+      z-index: 5000;
+
+      padding: 8px 18px;
+
+      background: #111;
+
+      color: #aaa;
+
+      border: 1px solid #555;
+    }
+
+
+    #skipButton:hover {
+
+      background: #222;
+
+      color: white;
+
+      border-color: white;
+    }
+
+
+    /* =====================================
+       FAKE HACKING SCREEN
+    ===================================== */
+
+    #hackingScreen {
+
+      display: none;
+
+      position: fixed;
+
       inset: 0;
-      z-index: 9999;
+
+      z-index: 2000;
+
+      padding: 30px;
+
       background: #000;
+
+      color: #00ff66;
+
+      font-size: 14px;
+
+      line-height: 1.8;
+
       overflow: hidden;
     }
 
-    /* Scanlines */
-    .scanlines {
-      position: absolute;
-      inset: 0;
 
-      background:
-        repeating-linear-gradient(
-          0deg,
-          rgba(255,255,255,.035) 0px,
-          rgba(255,255,255,.035) 1px,
-          transparent 1px,
-          transparent 4px
-        );
+    #hackLog {
 
-      animation: scan 0.08s infinite;
+      white-space: pre-line;
     }
 
-    /* Static noise */
-    .noise {
-      position: absolute;
-      inset: 0;
 
-      background:
-        repeating-linear-gradient(
-          90deg,
-          rgba(255,255,255,.025) 0px,
-          transparent 2px,
-          rgba(255,255,255,.02) 4px
-        );
+    #progress {
 
-      animation: noise .12s infinite;
+      margin-top: 20px;
+
+      color: #00ff66;
     }
 
-    /* Fake cracks */
-    .crack {
-      position: absolute;
-      height: 300px;
-      width: 2px;
-      background: rgba(255,255,255,.75);
-      box-shadow: 0 0 6px white;
-      transform-origin: top center;
-    }
 
-    .c1 {
-      left: 50%;
-      top: 0;
-      transform: rotate(28deg);
-    }
+    /* =====================================
+       LCD FAILURE SCREEN
+    ===================================== */
 
-    .c2 {
-      left: 50%;
-      top: 35%;
-      height: 360px;
-      transform: rotate(-57deg);
-    }
+    #lcd {
 
-    .c3 {
-      left: 50%;
-      top: 38%;
-      height: 320px;
-      transform: rotate(76deg);
-    }
-
-    .c4 {
-      left: 50%;
-      top: 45%;
-      height: 260px;
-      transform: rotate(-105deg);
-    }
-
-    .crack-horizontal {
-      position: absolute;
-      left: 50%;
-      top: 48%;
-      width: 330px;
-      height: 2px;
-      background: white;
-      transform: rotate(13deg);
-      box-shadow: 0 0 5px white;
-    }
-
-    .error {
-      position: absolute;
-      width: 100%;
-      top: 44%;
-      text-align: center;
-      color: #555;
-      font-size: 14px;
-      animation: flicker .15s infinite;
-    }
-
-    /* Reveal */
-    #message {
       display: none;
-      min-height: 100vh;
-      padding: 80px 25px;
+
+      position: fixed;
+
+      inset: 0;
+
+      z-index: 9999;
+
+      background: #000;
+
+      overflow: hidden;
+    }
+
+
+    /* =====================================
+       RAINBOW LCD LINES
+    ===================================== */
+
+    .lcd-rainbow {
+
+      position: absolute;
+
+      inset: 0;
+
+      background:
+
+        repeating-linear-gradient(
+
+          0deg,
+
+          rgba(255, 0, 0, .75) 0px,
+          rgba(255, 0, 0, .75) 2px,
+
+          rgba(255, 120, 0, .75) 2px,
+          rgba(255, 120, 0, .75) 4px,
+
+          rgba(255, 255, 0, .75) 4px,
+          rgba(255, 255, 0, .75) 6px,
+
+          rgba(0, 255, 80, .75) 6px,
+          rgba(0, 255, 80, .75) 8px,
+
+          rgba(0, 200, 255, .75) 8px,
+          rgba(0, 200, 255, .75) 10px,
+
+          rgba(80, 0, 255, .75) 10px,
+          rgba(80, 0, 255, .75) 12px,
+
+          transparent 12px,
+          transparent 22px
+        );
+
+
+      animation:
+
+        lcdBlink .15s infinite,
+
+        lcdMove .08s infinite;
+
+      opacity: .8;
+    }
+
+
+    /* =====================================
+       BRIGHT STRAIGHT RGB LINES
+    ===================================== */
+
+    .lcd-glitch-line {
+
+      position: absolute;
+
+      left: -10%;
+
+      width: 120%;
+
+      height: 3px;
+
+      background:
+
+        linear-gradient(
+
+          90deg,
+
+          red,
+          orange,
+          yellow,
+          lime,
+          cyan,
+          blue,
+          violet,
+          red
+
+        );
+
+
+      box-shadow:
+
+        0 0 8px cyan,
+
+        0 0 12px red;
+
+
+      animation:
+
+        glitchLine .2s infinite,
+
+        lineBlink .12s infinite;
+    }
+
+
+    .line1 {
+      top: 25%;
+    }
+
+
+    .line2 {
+      top: 50%;
+
+      animation-delay: .04s;
+    }
+
+
+    .line3 {
+      top: 75%;
+
+      animation-delay: .08s;
+    }
+
+
+    /* =====================================
+       LCD PIXEL NOISE
+    ===================================== */
+
+    .lcd-noise {
+
+      position: absolute;
+
+      inset: 0;
+
+      background:
+
+        repeating-linear-gradient(
+
+          90deg,
+
+          rgba(255,255,255,.08) 0px,
+
+          transparent 1px,
+
+          transparent 3px
+        );
+
+
+      opacity: .25;
+
+      mix-blend-mode: screen;
+
+      animation: pixelMove .05s infinite;
+    }
+
+
+    /* =====================================
+       LCD ERROR TEXT
+    ===================================== */
+
+    .lcdText {
+
+      position: absolute;
+
+      width: 100%;
+
+      top: 47%;
+
       text-align: center;
+
+      color: #777;
+
+      font-size: 13px;
+
+      letter-spacing: 2px;
+
+      animation: errorBlink .12s infinite;
+    }
+
+
+    /* =====================================
+       FINAL MESSAGE
+    ===================================== */
+
+    #message {
+
+      display: none;
+
+      min-height: 100vh;
+
+      padding: 80px 25px;
+
+      text-align: center;
+
+      background: #050505;
+
       color: white;
     }
 
+
     #message h2 {
-      color: #00ff66;
-      font-size: 38px;
-      text-shadow: 0 0 15px #00ff66;
+
+      color: #ff3030;
+
+      font-size: 32px;
+
+      text-shadow:
+
+        0 0 10px red,
+
+        0 0 20px red;
     }
 
+
     #message p {
+
       font-family: Arial, sans-serif;
+
       font-size: 18px;
+
       line-height: 1.8;
     }
 
-    .reveal-button {
-      margin-top: 20px;
-      background: #00ff66;
-      color: black;
-      font-weight: bold;
-    }
+
+    /* =====================================
+       ANIMATIONS
+    ===================================== */
 
     @keyframes blink {
+
       50% {
-        opacity: .25;
+        opacity: .2;
       }
+
     }
 
-    @keyframes scan {
+
+    @keyframes lcdBlink {
+
+      0% {
+        opacity: .1;
+      }
+
+      15% {
+        opacity: .9;
+      }
+
+      30% {
+        opacity: .2;
+      }
+
+      45% {
+        opacity: .8;
+      }
+
+      60% {
+        opacity: .15;
+      }
+
+      80% {
+        opacity: .9;
+      }
+
+      100% {
+        opacity: .1;
+      }
+
+    }
+
+
+    @keyframes lcdMove {
+
       0% {
         transform: translateY(0);
       }
 
       50% {
-        transform: translateY(2px);
+        transform: translateY(3px);
       }
 
       100% {
         transform: translateY(-2px);
       }
+
     }
 
-    @keyframes noise {
+
+    @keyframes glitchLine {
+
+      0% {
+        transform: translateX(-20%);
+      }
+
+      50% {
+        transform: translateX(10%);
+      }
+
+      100% {
+        transform: translateX(-5%);
+      }
+
+    }
+
+
+    @keyframes lineBlink {
+
+      0% {
+        opacity: .15;
+      }
+
+      50% {
+        opacity: 1;
+      }
+
+      100% {
+        opacity: .2;
+      }
+
+    }
+
+
+    @keyframes pixelMove {
+
       0% {
         transform: translateX(0);
       }
 
       50% {
-        transform: translateX(3px);
+        transform: translateX(2px);
       }
 
       100% {
-        transform: translateX(-3px);
+        transform: translateX(-2px);
       }
+
     }
 
-    @keyframes flicker {
-      0%, 100% {
-        opacity: 1;
+
+    @keyframes errorBlink {
+
+      0% {
+        opacity: .8;
       }
 
       50% {
-        opacity: .15;
+        opacity: .05;
       }
+
+      100% {
+        opacity: .7;
+      }
+
     }
+
   </style>
+
 </head>
+
 
 <body>
 
-  <!-- SKIP -->
-  <button class="skip" onclick="startPrank()">
+
+  <!-- =====================================
+       FIRST WARNING
+  ===================================== -->
+
+  <div class="popup" id="popup">
+
+    <h1>
+      ⚠ SYSTEM WARNING ⚠
+    </h1>
+
+
+    <div class="warning">
+
+      <p>
+        Unauthorized activity detected.
+      </p>
+
+      <p>
+        System scan in progress...
+      </p>
+
+    </div>
+
+
+    <div class="terminal">
+
+      > Connecting...<br>
+
+      > Checking system...<br>
+
+      > Scanning device...<br>
+
+      > Checking security...<br>
+
+      > █████████████ 100%
+
+    </div>
+
+
+    <p>
+      Continue?
+    </p>
+
+
+    <!-- OK -->
+
+    <button onclick="showSkip()">
+      OK
+    </button>
+
+
+    <!-- CANCEL -->
+
+    <button onclick="showSkip()">
+      Cancel
+    </button>
+
+  </div>
+
+
+  <!-- =====================================
+       SKIP BUTTON
+  ===================================== -->
+
+  <button
+    id="skipButton"
+    onclick="startPrank()">
+
     SKIP
+
   </button>
 
 
-  <!-- WARNING -->
-  <div class="popup" id="popup">
+  <!-- =====================================
+       HACKING ANIMATION
+  ===================================== -->
 
-    <h1>⚠ SYSTEM WARNING ⚠</h1>
+  <div id="hackingScreen">
 
-    <div class="warning">
-      <p>Unauthorized activity detected.</p>
-      <p>System scan in progress...</p>
+    <div id="hackLog">
+
+      > Initializing system...
+
     </div>
 
-    <div class="terminal">
-      > Connecting...<br>
-      > Checking system...<br>
-      > Scanning files...<br>
-      > Checking security...<br>
-      > █████████████ 100%
+
+    <div id="progress">
+
+      [----------] 0%
+
     </div>
-
-    <p>Continue?</p>
-
-    <button onclick="startPrank()">OK</button>
-    <button onclick="startPrank()">Cancel</button>
 
   </div>
 
 
-  <!-- FAKE SCREEN FAILURE -->
-  <div id="blackScreen">
+  <!-- =====================================
+       REALISTIC LCD EFFECT
+  ===================================== -->
 
-    <div class="scanlines"></div>
-    <div class="noise"></div>
+  <div id="lcd">
 
-    <div class="crack c1"></div>
-    <div class="crack c2"></div>
-    <div class="crack c3"></div>
-    <div class="crack c4"></div>
 
-    <div class="crack-horizontal"></div>
+    <!-- Rainbow horizontal lines -->
 
-    <div class="error">
+    <div class="lcd-rainbow"></div>
+
+
+    <!-- Bright straight RGB lines -->
+
+    <div class="lcd-glitch-line line1"></div>
+
+    <div class="lcd-glitch-line line2"></div>
+
+    <div class="lcd-glitch-line line3"></div>
+
+
+    <!-- Pixel noise -->
+
+    <div class="lcd-noise"></div>
+
+
+    <!-- Error -->
+
+    <div class="lcdText">
+
       DISPLAY ERROR...<br>
-      RECOVERING SYSTEM...
+
+      SIGNAL LOST...
+
     </div>
 
   </div>
 
 
- <!-- SCARY MESSAGE -->
-<div id="message">
+  <!-- =====================================
+       FINAL MESSAGE
+  ===================================== -->
 
-  <h2>⚠ SYSTEM BREACH DETECTED ⚠</h2>
+  <div id="message">
 
-  <p>
-    CONNECTION ESTABLISHED...
-  </p>
+    <h2>
+      ⚠ SYSTEM BREACH DETECTED ⚠
+    </h2>
 
-  <p>
-    UNKNOWN PRESENCE DETECTED.
-  </p>
 
-  <p>
-    DO NOT CLOSE THIS PAGE.
-  </p>
+    <p>
+      CONNECTION ESTABLISHED...
+    </p>
 
-  <p>
-    Someone is watching...
-  </p>
 
-  <p>
-    ████████████████████
-  </p>
+    <p>
+      UNKNOWN PRESENCE DETECTED.
+    </p>
 
-  <p>
-    SIGNAL LOST.<br>
-    SIGNAL FOUND.<br>
-    SIGNAL LOST.
-  </p>
 
-  <p>
-    <strong>YOU SHOULD NOT HAVE PRESSED SKIP.</strong>
-  </p>
+    <p>
+      DO NOT CLOSE THIS PAGE.
+    </p>
 
-</div>
 
+    <p>
+      Something is watching...
+    </p>
+
+
+    <p>
+      ████████████████████
+    </p>
+
+
+    <p>
+
+      SIGNAL LOST.<br>
+
+      SIGNAL FOUND.<br>
+
+      SIGNAL LOST.
+
+    </p>
+
+
+    <p>
+
+      <strong>
+        YOU SHOULD NOT HAVE PRESSED SKIP.
+      </strong>
+
+    </p>
+
+  </div>
 
 
   <script>
 
-    function startPrank() {
 
-      // Hide warning
-      document.getElementById("popup").style.display = "none";
+    /* =====================================
+       OK / CANCEL
+       SHOW SKIP
+    ===================================== */
 
-      // Hide skip button
-      document.querySelector(".skip").style.display = "none";
+    function showSkip() {
 
-      // Show fake broken LCD
-      const screen = document.getElementById("blackScreen");
-      screen.style.display = "block";
+      document.getElementById("popup")
+        .style.display = "none";
 
-      // Optional fullscreen request.
-      // Browser may ask the user for permission.
-      if (document.documentElement.requestFullscreen) {
-        document.documentElement.requestFullscreen().catch(() => {});
-      }
 
-      // Automatically finish after 5 seconds
-      setTimeout(function () {
+      document.getElementById("skipButton")
+        .style.display = "block";
 
-        screen.style.display = "none";
-
-        document.getElementById("message").style.display = "block";
-
-        // Leave fullscreen when finished
-        if (document.exitFullscreen &&
-            document.fullscreenElement) {
-          document.exitFullscreen().catch(() => {});
-        }
-
-      }, 5000);
     }
 
 
-    function showDetails() {
-      document.getElementById("details").style.display = "block";
+
+    /* =====================================
+       SKIP
+       START PRANK
+    ===================================== */
+
+    function startPrank() {
+
+
+      /* Hide skip */
+
+      document.getElementById("skipButton")
+        .style.display = "none";
+
+
+      /* Show hacking screen */
+
+      var hacking =
+        document.getElementById("hackingScreen");
+
+
+      hacking.style.display = "block";
+
+
+      var log =
+        document.getElementById("hackLog");
+
+
+      var progress =
+        document.getElementById("progress");
+
+
+      var percent = 0;
+
+
+      var logs = [
+
+        "> Establishing connection...",
+
+        "> Checking system status...",
+
+        "> Scanning device...",
+
+        "> Analyzing signal...",
+
+        "> Processing data...",
+
+        "> Connection unstable...",
+
+        "> WARNING: DISPLAY FAILURE..."
+
+      ];
+
+
+      var logIndex = 0;
+
+
+      /*
+        Run hacking animation
+      */
+
+      var timer = setInterval(function() {
+
+
+        percent += 10;
+
+
+        /*
+          Add log messages
+        */
+
+        if (logIndex < logs.length) {
+
+          log.innerHTML +=
+            "<br>" + logs[logIndex];
+
+          logIndex++;
+
+        }
+
+
+        /*
+          Build progress bar
+        */
+
+        var blocks = "";
+
+        var filled =
+          Math.floor(percent / 10);
+
+
+        for (
+          var i = 0;
+          i < 10;
+          i++
+        ) {
+
+          if (i < filled) {
+
+            blocks += "█";
+
+          } else {
+
+            blocks += "-";
+
+          }
+
+        }
+
+
+        progress.innerHTML =
+
+          "[" +
+          blocks +
+          "] " +
+          percent +
+          "%";
+
+
+        /*
+          100%
+        */
+
+        if (percent >= 100) {
+
+
+          clearInterval(timer);
+
+
+          /*
+            Short pause
+          */
+
+          setTimeout(function() {
+
+
+            /*
+              Hide hacking screen
+            */
+
+            hacking.style.display = "none";
+
+
+            /*
+              SHOW LCD EFFECT
+            */
+
+            var lcd =
+              document.getElementById("lcd");
+
+
+            lcd.style.display = "block";
+
+
+            /*
+              Keep LCD effect for 5 seconds
+            */
+
+            setTimeout(function() {
+
+
+              /*
+                Hide LCD
+              */
+
+              lcd.style.display = "none";
+
+
+              /*
+                Show final message
+              */
+
+              document.getElementById("message")
+                .style.display = "block";
+
+
+            }, 5000);
+
+
+          }, 700);
+
+        }
+
+
+      }, 500);
+
     }
 
   </script>
+
 
 </body>
 </html>
