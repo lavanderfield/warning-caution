@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-
   <meta name="viewport"
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
@@ -11,7 +10,6 @@
   <title>System Alert</title>
 
   <style>
-
     * {
       box-sizing: border-box;
     }
@@ -29,7 +27,6 @@
       color: #00ff66;
       overflow-x: hidden;
     }
-
 
     /* ================================
        WARNING
@@ -57,7 +54,6 @@
       line-height: 1.6;
     }
 
-
     /* ================================
        TERMINAL
     ================================= */
@@ -72,7 +68,6 @@
       font-size: 13px;
       line-height: 1.7;
     }
-
 
     /* ================================
        BUTTONS
@@ -95,148 +90,52 @@
       color: #000;
     }
 
-
     /* ================================
-       SKIP BUTTON
-    ================================= */
-
-    #skipButton {
-
-      display: none;
-
-      position: fixed;
-
-      top: 14px;
-      right: 14px;
-
-      z-index: 20000;
-
-      padding: 8px 17px;
-
-      margin: 0;
-
-      color: #aaa;
-
-      background: #111;
-
-      border: 1px solid #555;
-
-      border-radius: 6px;
-
-      font-family: inherit;
-
-      font-size: 14px;
-
-      cursor: pointer;
-    }
-
-    #skipButton:hover {
-      color: white;
-      border-color: white;
-      background: #222;
-    }
-
-
-    /* ================================
-       FAKE HACKING SCREEN
-    ================================= */
-
-    #hackingScreen {
-
-      display: none;
-
-      position: fixed;
-
-      inset: 0;
-
-      z-index: 2000;
-
-      padding: 30px;
-
-      background: #000;
-
-      color: #00ff66;
-
-      font-size: 14px;
-
-      line-height: 1.8;
-
-      overflow: hidden;
-    }
-
-    #hackLog {
-      white-space: pre-line;
-    }
-
-    #progress {
-      margin-top: 20px;
-      color: #00ff66;
-    }
-
-
-    /* ================================
-       LCD FAILURE SCREEN
+       LCD EFFECT
     ================================= */
 
     #lcd {
-
       display: none;
-
       position: fixed;
-
       inset: 0;
-
-      z-index: 10000;
-
+      z-index: 9999;
       background: #000;
-
       overflow: hidden;
-
-      cursor: pointer;
-
-      user-select: none;
     }
 
-
-    /* ================================
-       RAINBOW LCD
-    ================================= */
+    /* Rainbow horizontal LCD lines */
 
     .lcd-rainbow {
-
       position: absolute;
-
       inset: -20px;
 
       background:
-
         repeating-linear-gradient(
-
           0deg,
 
-          rgba(255,0,0,.85) 0px,
-          rgba(255,0,0,.85) 2px,
+          rgba(255,0,0,.9) 0px,
+          rgba(255,0,0,.9) 2px,
 
-          rgba(255,90,0,.85) 2px,
-          rgba(255,90,0,.85) 4px,
+          rgba(255,80,0,.9) 2px,
+          rgba(255,80,0,.9) 4px,
 
-          rgba(255,230,0,.85) 4px,
-          rgba(255,230,0,.85) 6px,
+          rgba(255,240,0,.9) 4px,
+          rgba(255,240,0,.9) 6px,
 
-          rgba(0,255,80,.85) 6px,
-          rgba(0,255,80,.85) 8px,
+          rgba(0,255,60,.9) 6px,
+          rgba(0,255,60,.9) 8px,
 
-          rgba(0,230,255,.85) 8px,
-          rgba(0,230,255,.85) 10px,
+          rgba(0,255,255,.9) 8px,
+          rgba(0,255,255,.9) 10px,
 
-          rgba(0,80,255,.85) 10px,
-          rgba(0,80,255,.85) 12px,
+          rgba(0,80,255,.9) 10px,
+          rgba(0,80,255,.9) 12px,
 
-          rgba(130,0,255,.85) 12px,
-          rgba(130,0,255,.85) 14px,
+          rgba(130,0,255,.9) 12px,
+          rgba(130,0,255,.9) 14px,
 
-          rgba(255,0,170,.85) 14px,
-          rgba(255,0,170,.85) 16px,
+          rgba(255,0,180,.9) 14px,
+          rgba(255,0,180,.9) 16px,
 
           transparent 16px,
           transparent 25px
@@ -244,191 +143,149 @@
 
       animation:
         lcdFlicker .13s infinite,
-        lcdMovement .09s infinite;
+        lcdMovement .08s infinite;
     }
 
-
-    /* ================================
-       STRAIGHT RGB LINES
-    ================================= */
+    /* Straight RGB lines */
 
     .rgb-line {
-
       position: absolute;
-
-      left: -15%;
-
-      width: 130%;
-
-      height: 4px;
+      left: -20%;
+      width: 140%;
+      height: 5px;
 
       background:
-
         linear-gradient(
-
           90deg,
-
-          #ff0000 0%,
-          #ff7a00 15%,
-          #ffff00 30%,
-          #00ff44 45%,
-          #00ffff 60%,
-          #0066ff 75%,
-          #8800ff 88%,
-          #ff0088 100%
+          red,
+          orange,
+          yellow,
+          lime,
+          cyan,
+          blue,
+          violet,
+          magenta,
+          red
         );
 
       box-shadow:
-        0 0 6px #00ffff,
-        0 0 12px #ff00ff,
-        0 0 20px rgba(255,0,100,.7);
-
-      pointer-events: none;
+        0 0 8px cyan,
+        0 0 15px magenta,
+        0 0 25px red;
 
       animation:
-        lineMove .18s infinite,
-        lineFlicker .11s infinite;
+        lineMove .15s infinite,
+        lineFlicker .10s infinite;
     }
 
     .line1 {
-      top: 17%;
-      animation-duration: .23s, .13s;
+      top: 18%;
+      animation-duration: .22s, .12s;
     }
 
     .line2 {
-      top: 38%;
-      animation-duration: .16s, .09s;
+      top: 37%;
+      animation-duration: .15s, .08s;
       animation-delay: .03s;
     }
 
     .line3 {
-      top: 57%;
-      animation-duration: .28s, .15s;
+      top: 58%;
+      animation-duration: .25s, .14s;
       animation-delay: .06s;
     }
 
     .line4 {
-      top: 79%;
-      animation-duration: .20s, .10s;
+      top: 80%;
+      animation-duration: .18s, .09s;
       animation-delay: .02s;
     }
 
-
-    /* ================================
-       LCD PIXELS
-    ================================= */
+    /* LCD pixel grid */
 
     .lcd-pixels {
-
       position: absolute;
-
       inset: 0;
 
       background:
-
         repeating-linear-gradient(
-
           0deg,
-
-          rgba(255,255,255,.08) 0px,
-
-          rgba(255,255,255,.08) 1px,
-
+          rgba(255,255,255,.12) 0px,
+          rgba(255,255,255,.12) 1px,
           transparent 1px,
-
           transparent 3px
         ),
 
         repeating-linear-gradient(
-
           90deg,
-
-          rgba(255,255,255,.035) 0px,
-
+          rgba(255,255,255,.04) 0px,
           transparent 1px,
-
           transparent 3px
         );
 
-      opacity: .35;
-
+      opacity: .4;
       mix-blend-mode: screen;
-
-      pointer-events: none;
 
       animation: pixelShift .06s infinite;
     }
 
-
-    /* ================================
-       GLITCH BANDS
-    ================================= */
+    /* Glitch bands */
 
     .glitch-band {
-
       position: absolute;
+      left: -10%;
+      width: 120%;
+      height: 10px;
 
-      left: 0;
-
-      width: 100%;
-
-      height: 12px;
-
-      background: rgba(255,255,255,.08);
+      background: rgba(255,255,255,.15);
 
       mix-blend-mode: screen;
 
-      pointer-events: none;
-
-      animation: bandGlitch .2s infinite;
+      animation: bandGlitch .16s infinite;
     }
 
     .band1 {
-      top: 30%;
-      animation-delay: .04s;
+      top: 28%;
     }
 
     .band2 {
-      top: 67%;
-      height: 8px;
-      animation-delay: .11s;
+      top: 65%;
+      animation-delay: .05s;
     }
 
+    .band3 {
+      top: 86%;
+      height: 5px;
+      animation-delay: .1s;
+    }
 
-    /* ================================
-       LCD ERROR
-    ================================= */
+    /* Error text */
 
     .lcdText {
-
       position: absolute;
-
       width: 100%;
-
       top: 46%;
 
       text-align: center;
 
-      color: #777;
+      color: #aaa;
 
-      font-size: 13px;
+      font-size: 14px;
 
-      letter-spacing: 2px;
+      letter-spacing: 3px;
 
-      text-shadow: 0 0 4px #fff;
+      text-shadow:
+        0 0 5px white,
+        0 0 10px cyan;
 
-      pointer-events: none;
-
-      animation: errorBlink .14s infinite;
+      animation: errorBlink .12s infinite;
     }
-
 
     /* ================================
        FINAL MESSAGE
     ================================= */
 
     #message {
-
       display: none;
 
       min-height: 100vh;
@@ -443,7 +300,6 @@
     }
 
     #message h2 {
-
       color: #ff3030;
 
       font-size: 32px;
@@ -454,7 +310,6 @@
     }
 
     #message p {
-
       font-family: Arial, sans-serif;
 
       font-size: 18px;
@@ -462,13 +317,11 @@
       line-height: 1.8;
     }
 
-
     /* ================================
        ANIMATIONS
     ================================= */
 
     @keyframes warningBlink {
-
       0%, 100% {
         opacity: 1;
       }
@@ -478,23 +331,21 @@
       }
     }
 
-
     @keyframes lcdFlicker {
-
       0% {
-        opacity: .15;
+        opacity: .2;
       }
 
       10% {
-        opacity: .9;
+        opacity: 1;
       }
 
       20% {
-        opacity: .25;
+        opacity: .3;
       }
 
       30% {
-        opacity: .95;
+        opacity: 1;
       }
 
       45% {
@@ -502,7 +353,7 @@
       }
 
       60% {
-        opacity: .8;
+        opacity: .9;
       }
 
       75% {
@@ -510,27 +361,25 @@
       }
 
       100% {
-        opacity: .7;
+        opacity: .8;
       }
     }
 
-
     @keyframes lcdMovement {
-
       0% {
         transform: translateY(0);
       }
 
       25% {
-        transform: translateY(-3px);
+        transform: translateY(-4px);
       }
 
       50% {
-        transform: translateY(4px);
+        transform: translateY(5px);
       }
 
       75% {
-        transform: translateY(-2px);
+        transform: translateY(-3px);
       }
 
       100% {
@@ -538,23 +387,21 @@
       }
     }
 
-
     @keyframes lineMove {
-
       0% {
         transform: translateX(-20%);
       }
 
       25% {
-        transform: translateX(5%);
+        transform: translateX(10%);
       }
 
       50% {
-        transform: translateX(-8%);
+        transform: translateX(-10%);
       }
 
       75% {
-        transform: translateX(12%);
+        transform: translateX(15%);
       }
 
       100% {
@@ -562,9 +409,7 @@
       }
     }
 
-
     @keyframes lineFlicker {
-
       0% {
         opacity: .1;
       }
@@ -574,15 +419,15 @@
       }
 
       40% {
-        opacity: .25;
+        opacity: .2;
       }
 
       60% {
-        opacity: .95;
+        opacity: 1;
       }
 
       80% {
-        opacity: .15;
+        opacity: .1;
       }
 
       100% {
@@ -590,9 +435,7 @@
       }
     }
 
-
     @keyframes pixelShift {
-
       0% {
         transform: translateX(0);
       }
@@ -606,65 +449,68 @@
       }
     }
 
-
     @keyframes bandGlitch {
-
       0% {
-        transform: translateX(-5%);
+        transform: translateX(-10%);
         opacity: .1;
       }
 
-      25% {
-        transform: translateX(4%);
-        opacity: .8;
-      }
-
-      50% {
-        transform: translateX(-8%);
-        opacity: .2;
-      }
-
-      75% {
-        transform: translateX(7%);
-        opacity: .7;
-      }
-
-      100% {
-        transform: translateX(-3%);
-        opacity: .1;
-      }
-    }
-
-
-    @keyframes errorBlink {
-
-      0% {
-        opacity: .8;
-      }
-
-      25% {
-        opacity: .05;
-      }
-
-      50% {
+      20% {
+        transform: translateX(10%);
         opacity: .9;
       }
 
-      75% {
-        opacity: .1;
+      40% {
+        transform: translateX(-5%);
+        opacity: .2;
+      }
+
+      60% {
+        transform: translateX(8%);
+        opacity: .8;
+      }
+
+      80% {
+        transform: translateX(-12%);
+        opacity: .15;
       }
 
       100% {
-        opacity: .7;
+        transform: translateX(5%);
+        opacity: .5;
+      }
+    }
+
+    @keyframes errorBlink {
+      0% {
+        opacity: .9;
+      }
+
+      20% {
+        opacity: .05;
+      }
+
+      40% {
+        opacity: 1;
+      }
+
+      60% {
+        opacity: .1;
+      }
+
+      80% {
+        opacity: .8;
+      }
+
+      100% {
+        opacity: .2;
       }
     }
 
   </style>
 </head>
 
-
 <body>
-
 
   <!-- ================================
        WARNING
@@ -688,33 +534,25 @@
 
     </div>
 
-
     <div class="terminal">
 
       > Connecting...<br>
-
       > Checking system...<br>
-
       > Scanning device...<br>
-
       > Checking security...<br>
-
       > █████████████ 100%
 
     </div>
-
 
     <p>
       Continue?
     </p>
 
-
-    <button onclick="showSkip()">
+    <button onclick="startPrank()">
       OK
     </button>
 
-
-    <button onclick="showSkip()">
+    <button onclick="startPrank()">
       Cancel
     </button>
 
@@ -722,37 +560,7 @@
 
 
   <!-- ================================
-       SKIP BUTTON
-  ================================= -->
-
-  <button
-    id="skipButton"
-    onclick="goToNextScreen()">
-
-    SKIP
-
-  </button>
-
-
-  <!-- ================================
-       FAKE HACKING SCREEN
-  ================================= -->
-
-  <div id="hackingScreen">
-
-    <div id="hackLog">
-      > Initializing system...
-    </div>
-
-    <div id="progress">
-      [----------] 0%
-    </div>
-
-  </div>
-
-
-  <!-- ================================
-       LCD FAILURE SCREEN
+       LCD EFFECT
   ================================= -->
 
   <div id="lcd">
@@ -760,16 +568,13 @@
     <div class="lcd-rainbow"></div>
 
     <div class="rgb-line line1"></div>
-
     <div class="rgb-line line2"></div>
-
     <div class="rgb-line line3"></div>
-
     <div class="rgb-line line4"></div>
 
     <div class="glitch-band band1"></div>
-
     <div class="glitch-band band2"></div>
+    <div class="glitch-band band3"></div>
 
     <div class="lcd-pixels"></div>
 
@@ -782,7 +587,7 @@
 
 
   <!-- ================================
-       NEXT SCREEN
+       FINAL MESSAGE
   ================================= -->
 
   <div id="message">
@@ -819,7 +624,7 @@
 
     <p>
       <strong>
-        YOU SHOULD NOT HAVE PRESSED SKIP.
+        YOU SHOULD NOT HAVE PRESSED THAT.
       </strong>
     </p>
 
@@ -828,225 +633,38 @@
 
   <script>
 
+    let prankStarted = false;
 
-    /* ================================
-       OK / CANCEL
-    ================================= */
+    function startPrank() {
 
-    function showSkip() {
+      /* Prevent double-click */
+      if (prankStarted) return;
 
-      document.getElementById("popup")
-        .style.display = "none";
+      prankStarted = true;
 
+      /* Hide warning */
+      document.getElementById("popup").style.display = "none";
 
-      document.getElementById("skipButton")
-        .style.display = "block";
+      /* Show LCD effect */
+      const lcd = document.getElementById("lcd");
 
+      lcd.style.display = "block";
 
-      startFakeScan();
+      /*
+        LCD effect lasts 5 seconds,
+        then shows the final message.
+      */
+
+      setTimeout(function() {
+
+        lcd.style.display = "none";
+
+        document.getElementById("message")
+          .style.display = "block";
+
+      }, 5000);
 
     }
-
-
-    /* ================================
-       FAKE SCAN
-    ================================= */
-
-    function startFakeScan() {
-
-      const hacking =
-        document.getElementById("hackingScreen");
-
-      hacking.style.display = "block";
-
-
-      const log =
-        document.getElementById("hackLog");
-
-      const progress =
-        document.getElementById("progress");
-
-
-      let percent = 0;
-
-
-      const logs = [
-
-        "> Establishing connection...",
-
-        "> Checking system status...",
-
-        "> Scanning device...",
-
-        "> Analyzing signal...",
-
-        "> Processing data...",
-
-        "> Connection unstable...",
-
-        "> WARNING: DISPLAY FAILURE..."
-
-      ];
-
-
-      let logIndex = 0;
-
-
-      const timer = setInterval(function() {
-
-        percent += 10;
-
-
-        if (logIndex < logs.length) {
-
-          log.innerHTML +=
-            "<br>" + logs[logIndex];
-
-          logIndex++;
-
-        }
-
-
-        let blocks = "";
-
-        const filled =
-          Math.floor(percent / 10);
-
-
-        for (let i = 0; i < 10; i++) {
-
-          blocks +=
-            i < filled ? "█" : "-";
-
-        }
-
-
-        progress.innerHTML =
-          "[" +
-          blocks +
-          "] " +
-          percent +
-          "%";
-
-
-        if (percent >= 100) {
-
-          clearInterval(timer);
-
-
-          setTimeout(function() {
-
-            hacking.style.display =
-              "none";
-
-
-            const lcd =
-              document.getElementById("lcd");
-
-
-            lcd.style.display =
-              "block";
-
-
-            /*
-              Show SKIP while LCD
-              is active.
-            */
-
-            const skip =
-              document.getElementById("skipButton");
-
-
-            skip.style.display =
-              "block";
-
-
-            /*
-              Automatic next screen
-              after 5 seconds.
-            */
-
-            setTimeout(function() {
-
-              goToNextScreen();
-
-            }, 5000);
-
-
-          }, 500);
-
-        }
-
-      }, 400);
-
-    }
-
-
-    /* ================================
-       ANY TAP ON LCD
-       OR SKIP BUTTON
-       = NEXT SCREEN
-    ================================= */
-
-    function goToNextScreen() {
-
-      const lcd =
-        document.getElementById("lcd");
-
-
-      const skip =
-        document.getElementById("skipButton");
-
-
-      const message =
-        document.getElementById("message");
-
-
-      lcd.style.display =
-        "none";
-
-
-      skip.style.display =
-        "none";
-
-
-      message.style.display =
-        "block";
-
-    }
-
-
-    /* ================================
-       TAP ANYWHERE ON LCD
-    ================================= */
-
-    document
-      .getElementById("lcd")
-      .addEventListener(
-        "click",
-        function() {
-
-          goToNextScreen();
-
-        }
-      );
-
-
-    /*
-      Mobile touch support
-    */
-
-    document
-      .getElementById("lcd")
-      .addEventListener(
-        "touchstart",
-        function() {
-
-          goToNextScreen();
-
-        },
-        { passive: true }
-      );
 
   </script>
 
