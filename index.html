@@ -37,17 +37,11 @@
 
     .popup {
       width: min(90%, 450px);
-
       margin: 20vh auto 0;
-
       padding: 25px;
-
       text-align: center;
-
       background: #101010;
-
       border: 2px solid #00ff66;
-
       border-radius: 12px;
 
       box-shadow:
@@ -57,7 +51,6 @@
 
     .popup h1 {
       color: #ff3030;
-
       font-size: 27px;
 
       animation:
@@ -67,7 +60,6 @@
 
     .warning {
       color: white;
-
       line-height: 1.6;
     }
 
@@ -78,9 +70,7 @@
 
     .terminal {
       margin-top: 20px;
-
       padding: 15px;
-
       text-align: left;
 
       background: #050505;
@@ -90,7 +80,6 @@
       color: #00ff66;
 
       font-size: 13px;
-
       line-height: 1.7;
     }
 
@@ -101,7 +90,6 @@
 
     button {
       padding: 12px 28px;
-
       margin: 10px 5px;
 
       background: transparent;
@@ -122,7 +110,6 @@
 
     button:hover {
       background: #00ff66;
-
       color: #000;
     }
 
@@ -132,7 +119,6 @@
     ================================= */
 
     #lcd {
-
       display: none;
 
       position: fixed;
@@ -216,6 +202,7 @@
       background:
 
         linear-gradient(
+
           90deg,
 
           #ff0000 0%,
@@ -231,9 +218,7 @@
       box-shadow:
 
         0 0 8px #00ffff,
-
         0 0 15px #ff00ff,
-
         0 0 25px rgba(255,0,100,.8);
 
       animation:
@@ -285,7 +270,7 @@
 
 
     /* =================================
-       LCD PIXEL GRID
+       LCD PIXELS
     ================================= */
 
     .lcd-pixels {
@@ -408,7 +393,6 @@
       text-shadow:
 
         0 0 5px white,
-
         0 0 10px cyan;
 
       animation:
@@ -445,7 +429,6 @@
       text-shadow:
 
         0 0 10px red,
-
         0 0 20px red;
     }
 
@@ -457,6 +440,54 @@
       font-size: 18px;
 
       line-height: 1.8;
+    }
+
+
+    /* =================================
+       SIGNAL DISPLAY
+    ================================= */
+
+    .signal-container {
+
+      margin-top: 30px;
+
+      min-height: 70px;
+
+      display: flex;
+
+      justify-content: center;
+
+      align-items: center;
+    }
+
+
+    #signalText {
+
+      font-family: "Courier New", monospace;
+
+      font-size: 22px;
+
+      font-weight: bold;
+
+      letter-spacing: 3px;
+
+      color: #ff3030;
+
+      text-shadow:
+
+        0 0 5px red,
+        0 0 12px red;
+
+      opacity: 0;
+    }
+
+
+    /* Signal blinking */
+
+    .signal-active {
+
+      animation:
+        signalBlink .22s infinite;
     }
 
 
@@ -607,43 +638,37 @@
     @keyframes bandGlitch {
 
       0% {
-        transform:
-          translateX(-10%);
+        transform: translateX(-10%);
 
         opacity: .1;
       }
 
       20% {
-        transform:
-          translateX(10%);
+        transform: translateX(10%);
 
         opacity: .9;
       }
 
       40% {
-        transform:
-          translateX(-5%);
+        transform: translateX(-5%);
 
         opacity: .2;
       }
 
       60% {
-        transform:
-          translateX(8%);
+        transform: translateX(8%);
 
         opacity: .8;
       }
 
       80% {
-        transform:
-          translateX(-12%);
+        transform: translateX(-12%);
 
         opacity: .15;
       }
 
       100% {
-        transform:
-          translateX(5%);
+        transform: translateX(5%);
 
         opacity: .5;
       }
@@ -674,6 +699,41 @@
 
       100% {
         opacity: .2;
+      }
+    }
+
+
+    /* =================================
+       SIGNAL BLINK
+    ================================= */
+
+    @keyframes signalBlink {
+
+      0% {
+        opacity: 0;
+        transform: translateX(-8px);
+      }
+
+      15% {
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+      30% {
+        opacity: .2;
+      }
+
+      45% {
+        opacity: 1;
+      }
+
+      60% {
+        opacity: 0;
+      }
+
+      100% {
+        opacity: 0;
+        transform: translateX(8px);
       }
     }
 
@@ -731,8 +791,6 @@
     </p>
 
 
-    <!-- BOTH BUTTONS DO THE SAME THING -->
-
     <button onclick="startPrank()">
       OK
     </button>
@@ -747,8 +805,7 @@
 
   <!-- =================================
        LCD EFFECT
-       NO SKIP BUTTON
-  ================================= -->
+    ================================= -->
 
   <div id="lcd">
 
@@ -818,24 +875,26 @@
     </p>
 
 
+    <!-- DYNAMIC SIGNAL -->
+
+    <div class="signal-container">
+
+      <div id="signalText">
+        SIGNAL LOST
+      </div>
+
+    </div>
+
+
     <p>
       ████████████████████
     </p>
 
 
     <p>
-      SIGNAL LOST.<br>
-      SIGNAL FOUND.<br>
-      SIGNAL LOST.
-    </p>
-
-
-    <p>
-
       <strong>
         YOU SHOULD NOT HAVE PRESSED THAT.
       </strong>
-
     </p>
 
   </div>
@@ -850,9 +909,11 @@
     let started = false;
 
 
-    function startPrank() {
+    /* =================================
+       START PRANK
+    ================================= */
 
-      /* Prevent multiple activations */
+    function startPrank() {
 
       if (started) {
         return;
@@ -861,15 +922,17 @@
       started = true;
 
 
-      /* Hide warning */
+      /*
+        Hide warning
+      */
 
-      const popup =
-        document.getElementById("popup");
-
-      popup.style.display = "none";
+      document.getElementById("popup")
+        .style.display = "none";
 
 
-      /* Show LCD effect */
+      /*
+        Show LCD
+      */
 
       const lcd =
         document.getElementById("lcd");
@@ -878,24 +941,167 @@
 
 
       /*
-        LCD effect runs for 5 seconds.
+        After 5 seconds,
+        show final message.
       */
 
       setTimeout(function() {
 
-        /* Hide LCD */
-
         lcd.style.display = "none";
 
-
-        /* Show final message */
 
         const message =
           document.getElementById("message");
 
         message.style.display = "block";
 
+
+        /*
+          Start dynamic signal
+        */
+
+        startSignalAnimation();
+
+
       }, 5000);
+
+    }
+
+
+    /* =================================
+       SIGNAL ANIMATION
+    ================================= */
+
+    function startSignalAnimation() {
+
+      const signal =
+        document.getElementById("signalText");
+
+
+      const signals = [
+
+        "SIGNAL LOST",
+
+        "SIGNAL FOUND",
+
+        "SIGNAL UNSTABLE",
+
+        "SIGNAL LOST",
+
+        "SIGNAL FOUND",
+
+        "NO SIGNAL",
+
+        "SIGNAL LOST"
+
+      ];
+
+
+      let index = 0;
+
+
+      function showSignal() {
+
+        /*
+          Remove previous animation
+        */
+
+        signal.classList.remove(
+          "signal-active"
+        );
+
+
+        /*
+          Force browser to restart animation
+        */
+
+        void signal.offsetWidth;
+
+
+        /*
+          Change text
+        */
+
+        signal.textContent =
+          signals[index];
+
+
+        /*
+          Different color
+          depending on status
+        */
+
+        if (
+          signal.textContent ===
+          "SIGNAL FOUND"
+        ) {
+
+          signal.style.color =
+            "#00ff66";
+
+          signal.style.textShadow =
+            "0 0 5px #00ff66, 0 0 15px #00ff66";
+
+        } else if (
+          signal.textContent ===
+          "SIGNAL UNSTABLE"
+        ) {
+
+          signal.style.color =
+            "#ffff00";
+
+          signal.style.textShadow =
+            "0 0 5px yellow, 0 0 15px yellow";
+
+        } else {
+
+          signal.style.color =
+            "#ff3030";
+
+          signal.style.textShadow =
+            "0 0 5px red, 0 0 15px red";
+
+        }
+
+
+        /*
+          Start blinking
+        */
+
+        signal.classList.add(
+          "signal-active"
+        );
+
+
+        /*
+          Next signal
+        */
+
+        index++;
+
+        if (index >= signals.length) {
+          index = 0;
+        }
+
+
+        /*
+          Random timing
+          para hindi predictable
+        */
+
+        const nextTime =
+          700 + Math.random() * 1200;
+
+
+        setTimeout(
+          showSignal,
+          nextTime
+        );
+
+      }
+
+
+      showSignal();
 
     }
 
