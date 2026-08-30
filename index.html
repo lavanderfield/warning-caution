@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="theme-color" content="#000000">
+
+  <title>System Alert</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      width: 100%;
+      min-height: 100%;
+      background: #000;
+      font-family: "Courier New", monospace;
+    }
+
+    body {
+      color: #00ff66;
+      overflow-x: hidden;
+    }
+
+    /* TOP SKIP BUTTON */
+    .skip {
+      position: fixed;
+      top: 14px;
+      right: 14px;
+      z-index: 100;
+      padding: 8px 16px;
+      color: #aaa;
+      background: #111;
+      border: 1px solid #555;
+      border-radius: 6px;
+      font-family: inherit;
+      cursor: pointer;
+    }
+
+    .skip:hover {
+      color: white;
+      border-color: white;
+    }
+
+    /* MAIN WARNING */
+    .popup {
+      width: min(90%, 450px);
+      margin: 20vh auto 0;
+      padding: 25px;
+      text-align: center;
+      background: #101010;
+      border: 2px solid #00ff66;
+      border-radius: 12px;
+      box-shadow: 0 0 30px rgba(0,255,102,.35);
+    }
+
+    h1 {
+      color: #ff3030;
+      font-size: 27px;
+      animation: blink .7s infinite;
+    }
+
+    .warning {
+      color: white;
+      line-height: 1.6;
+    }
+
+    .terminal {
+      margin-top: 20px;
+      padding: 15px;
+      text-align: left;
+      background: #050505;
+      border-radius: 6px;
+      color: #00ff66;
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    button {
+      padding: 12px 28px;
+      margin: 10px 5px;
+      background: transparent;
+      border: 1px solid #00ff66;
+      border-radius: 6px;
+      color: #00ff66;
+      font-family: inherit;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background: #00ff66;
+      color: black;
+    }
+
+    /* FAKE LCD SCREEN */
+    #blackScreen {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: #000;
+      overflow: hidden;
+    }
+
+    /* Scanlines */
+    .scanlines {
+      position: absolute;
+      inset: 0;
+
+      background:
+        repeating-linear-gradient(
+          0deg,
+          rgba(255,255,255,.035) 0px,
+          rgba(255,255,255,.035) 1px,
+          transparent 1px,
+          transparent 4px
+        );
+
+      animation: scan 0.08s infinite;
+    }
+
+    /* Static noise */
+    .noise {
+      position: absolute;
+      inset: 0;
+
+      background:
+        repeating-linear-gradient(
+          90deg,
+          rgba(255,255,255,.025) 0px,
+          transparent 2px,
+          rgba(255,255,255,.02) 4px
+        );
+
+      animation: noise .12s infinite;
+    }
+
+    /* Fake cracks */
+    .crack {
+      position: absolute;
+      height: 300px;
+      width: 2px;
+      background: rgba(255,255,255,.75);
+      box-shadow: 0 0 6px white;
+      transform-origin: top center;
+    }
+
+    .c1 {
+      left: 50%;
+      top: 0;
+      transform: rotate(28deg);
+    }
+
+    .c2 {
+      left: 50%;
+      top: 35%;
+      height: 360px;
+      transform: rotate(-57deg);
+    }
+
+    .c3 {
+      left: 50%;
+      top: 38%;
+      height: 320px;
+      transform: rotate(76deg);
+    }
+
+    .c4 {
+      left: 50%;
+      top: 45%;
+      height: 260px;
+      transform: rotate(-105deg);
+    }
+
+    .crack-horizontal {
+      position: absolute;
+      left: 50%;
+      top: 48%;
+      width: 330px;
+      height: 2px;
+      background: white;
+      transform: rotate(13deg);
+      box-shadow: 0 0 5px white;
+    }
+
+    .error {
+      position: absolute;
+      width: 100%;
+      top: 44%;
+      text-align: center;
+      color: #555;
+      font-size: 14px;
+      animation: flicker .15s infinite;
+    }
+
+    /* Reveal */
+    #message {
+      display: none;
+      min-height: 100vh;
+      padding: 80px 25px;
+      text-align: center;
+      color: white;
+    }
+
+    #message h2 {
+      color: #00ff66;
+      font-size: 38px;
+      text-shadow: 0 0 15px #00ff66;
+    }
+
+    #message p {
+      font-family: Arial, sans-serif;
+      font-size: 18px;
+      line-height: 1.8;
+    }
+
+    .reveal-button {
+      margin-top: 20px;
+      background: #00ff66;
+      color: black;
+      font-weight: bold;
+    }
+
+    @keyframes blink {
+      50% {
+        opacity: .25;
+      }
+    }
+
+    @keyframes scan {
+      0% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(2px);
+      }
+
+      100% {
+        transform: translateY(-2px);
+      }
+    }
+
+    @keyframes noise {
+      0% {
+        transform: translateX(0);
+      }
+
+      50% {
+        transform: translateX(3px);
+      }
+
+      100% {
+        transform: translateX(-3px);
+      }
+    }
+
+    @keyframes flicker {
+      0%, 100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: .15;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- SKIP -->
+  <button class="skip" onclick="startPrank()">
+    SKIP
+  </button>
+
+
+  <!-- WARNING -->
+  <div class="popup" id="popup">
+
+    <h1>⚠ SYSTEM WARNING ⚠</h1>
+
+    <div class="warning">
+      <p>Unauthorized activity detected.</p>
+      <p>System scan in progress...</p>
+    </div>
+
+    <div class="terminal">
+      > Connecting...<br>
+      > Checking system...<br>
+      > Scanning files...<br>
+      > Checking security...<br>
+      > █████████████ 100%
+    </div>
+
+    <p>Continue?</p>
+
+    <button onclick="startPrank()">OK</button>
+    <button onclick="startPrank()">Cancel</button>
+
+  </div>
+
+
+  <!-- FAKE SCREEN FAILURE -->
+  <div id="blackScreen">
+
+    <div class="scanlines"></div>
+    <div class="noise"></div>
+
+    <div class="crack c1"></div>
+    <div class="crack c2"></div>
+    <div class="crack c3"></div>
+    <div class="crack c4"></div>
+
+    <div class="crack-horizontal"></div>
+
+    <div class="error">
+      DISPLAY ERROR...<br>
+      RECOVERING SYSTEM...
+    </div>
+
+  </div>
+
+
+ <!-- SCARY MESSAGE -->
+<div id="message">
+
+  <h2>⚠ SYSTEM BREACH DETECTED ⚠</h2>
+
+  <p>
+    CONNECTION ESTABLISHED...
+  </p>
+
+  <p>
+    UNKNOWN PRESENCE DETECTED.
+  </p>
+
+  <p>
+    DO NOT CLOSE THIS PAGE.
+  </p>
+
+  <p>
+    So is watching...
+  </p>
+
+  <p>
+    ████████████████████
+  </p>
+
+  <p>
+    SIGNAL LOST.<br>
+    SIGNAL FOUND.<br>
+    SIGNAL LOST.
+  </p>
+
+  <p>
+    <strong>YOU SHOULD NOT HAVE PRESSED SKIP.</strong>
+  </p>
+
+</div>
+
+
+
+  <script>
+
+    function startPrank() {
+
+      // Hide warning
+      document.getElementById("popup").style.display = "none";
+
+      // Hide skip button
+      document.querySelector(".skip").style.display = "none";
+
+      // Show fake broken LCD
+      const screen = document.getElementById("blackScreen");
+      screen.style.display = "block";
+
+      // Optional fullscreen request.
+      // Browser may ask the user for permission.
+      if (document.documentElement.requestFullscreen) {
+        document.documentElement.requestFullscreen().catch(() => {});
+      }
+
+      // Automatically finish after 5 seconds
+      setTimeout(function () {
+
+        screen.style.display = "none";
+
+        document.getElementById("message").style.display = "block";
+
+        // Leave fullscreen when finished
+        if (document.exitFullscreen &&
+            document.fullscreenElement) {
+          document.exitFullscreen().catch(() => {});
+        }
+
+      }, 5000);
+    }
+
+
+    function showDetails() {
+      document.getElementById("details").style.display = "block";
+    }
+
+  </script>
+
+</body>
+</html>
