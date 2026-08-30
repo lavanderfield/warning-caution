@@ -31,17 +31,23 @@
     }
 
 
-    /* =================================
-       WARNING BOX
+    /* ================================
+       WARNING
     ================================= */
 
     .popup {
       width: min(90%, 450px);
+
       margin: 20vh auto 0;
+
       padding: 25px;
+
       text-align: center;
+
       background: #101010;
+
       border: 2px solid #00ff66;
+
       border-radius: 12px;
 
       box-shadow:
@@ -51,6 +57,7 @@
 
     .popup h1 {
       color: #ff3030;
+
       font-size: 27px;
 
       animation:
@@ -60,17 +67,21 @@
 
     .warning {
       color: white;
+
       line-height: 1.6;
     }
 
 
-    /* =================================
+    /* ================================
        TERMINAL
     ================================= */
 
     .terminal {
+
       margin-top: 20px;
+
       padding: 15px;
+
       text-align: left;
 
       background: #050505;
@@ -80,16 +91,19 @@
       color: #00ff66;
 
       font-size: 13px;
+
       line-height: 1.7;
     }
 
 
-    /* =================================
+    /* ================================
        BUTTONS
     ================================= */
 
     button {
+
       padding: 12px 28px;
+
       margin: 10px 5px;
 
       background: transparent;
@@ -109,16 +123,61 @@
 
 
     button:hover {
+
       background: #00ff66;
+
       color: #000;
     }
 
 
-    /* =================================
-       LCD EFFECT
+    /* ================================
+       FAKE HACKING SCREEN
+    ================================= */
+
+    #hackingScreen {
+
+      display: none;
+
+      position: fixed;
+
+      inset: 0;
+
+      z-index: 2000;
+
+      padding: 30px;
+
+      background: #000;
+
+      color: #00ff66;
+
+      font-size: 14px;
+
+      line-height: 1.8;
+
+      overflow: hidden;
+    }
+
+
+    #hackLog {
+
+      white-space: pre-line;
+    }
+
+
+    #progress {
+
+      margin-top: 20px;
+
+      color: #00ff66;
+    }
+
+
+    /* ================================
+       LCD FAILURE SCREEN
     ================================= */
 
     #lcd {
+
       display: none;
 
       position: fixed;
@@ -131,11 +190,13 @@
 
       overflow: hidden;
 
-      pointer-events: none;
+      cursor: pointer;
+
+      user-select: none;
     }
 
 
-    /* =================================
+    /* ================================
        RAINBOW LCD
     ================================= */
 
@@ -151,29 +212,29 @@
 
           0deg,
 
-          rgba(255,0,0,.9) 0px,
-          rgba(255,0,0,.9) 2px,
+          rgba(255,0,0,.85) 0px,
+          rgba(255,0,0,.85) 2px,
 
-          rgba(255,80,0,.9) 2px,
-          rgba(255,80,0,.9) 4px,
+          rgba(255,90,0,.85) 2px,
+          rgba(255,90,0,.85) 4px,
 
-          rgba(255,230,0,.9) 4px,
-          rgba(255,230,0,.9) 6px,
+          rgba(255,230,0,.85) 4px,
+          rgba(255,230,0,.85) 6px,
 
-          rgba(0,255,60,.9) 6px,
-          rgba(0,255,60,.9) 8px,
+          rgba(0,255,80,.85) 6px,
+          rgba(0,255,80,.85) 8px,
 
-          rgba(0,255,255,.9) 8px,
-          rgba(0,255,255,.9) 10px,
+          rgba(0,230,255,.85) 8px,
+          rgba(0,230,255,.85) 10px,
 
-          rgba(0,80,255,.9) 10px,
-          rgba(0,80,255,.9) 12px,
+          rgba(0,80,255,.85) 10px,
+          rgba(0,80,255,.85) 12px,
 
-          rgba(130,0,255,.9) 12px,
-          rgba(130,0,255,.9) 14px,
+          rgba(130,0,255,.85) 12px,
+          rgba(130,0,255,.85) 14px,
 
-          rgba(255,0,180,.9) 14px,
-          rgba(255,0,180,.9) 16px,
+          rgba(255,0,170,.85) 14px,
+          rgba(255,0,170,.85) 16px,
 
           transparent 16px,
           transparent 25px
@@ -181,23 +242,23 @@
 
       animation:
         lcdFlicker .13s infinite,
-        lcdMovement .08s infinite;
+        lcdMovement .09s infinite;
     }
 
 
-    /* =================================
-       STRAIGHT RAINBOW LINES
+    /* ================================
+       STRAIGHT RGB LINES
     ================================= */
 
     .rgb-line {
 
       position: absolute;
 
-      left: -20%;
+      left: -15%;
 
-      width: 140%;
+      width: 130%;
 
-      height: 5px;
+      height: 4px;
 
       background:
 
@@ -206,70 +267,78 @@
           90deg,
 
           #ff0000 0%,
-          #ff7a00 14%,
-          #ffff00 28%,
-          #00ff44 42%,
-          #00ffff 56%,
-          #0066ff 70%,
-          #8800ff 84%,
+          #ff7a00 15%,
+          #ffff00 30%,
+          #00ff44 45%,
+          #00ffff 60%,
+          #0066ff 75%,
+          #8800ff 88%,
           #ff0088 100%
         );
 
       box-shadow:
 
-        0 0 8px #00ffff,
-        0 0 15px #ff00ff,
-        0 0 25px rgba(255,0,100,.8);
+        0 0 6px #00ffff,
+
+        0 0 12px #ff00ff,
+
+        0 0 20px rgba(255,0,100,.7);
+
+      pointer-events: none;
 
       animation:
         lineMove .18s infinite,
-        lineFlicker .10s infinite;
+        lineFlicker .11s infinite;
     }
 
 
     .line1 {
+
       top: 17%;
 
       animation-duration:
-        .22s,
-        .12s;
+        .23s,
+        .13s;
     }
 
 
     .line2 {
+
       top: 38%;
 
       animation-duration:
-        .15s,
-        .08s;
+        .16s,
+        .09s;
 
       animation-delay: .03s;
     }
 
 
     .line3 {
-      top: 58%;
+
+      top: 57%;
 
       animation-duration:
-        .25s,
-        .14s;
+        .28s,
+        .15s;
 
       animation-delay: .06s;
     }
 
 
     .line4 {
-      top: 80%;
+
+      top: 79%;
 
       animation-duration:
-        .19s,
-        .09s;
+        .20s,
+        .10s;
 
       animation-delay: .02s;
     }
 
 
-    /* =================================
+    /* ================================
        LCD PIXELS
     ================================= */
 
@@ -285,9 +354,9 @@
 
           0deg,
 
-          rgba(255,255,255,.12) 0px,
+          rgba(255,255,255,.08) 0px,
 
-          rgba(255,255,255,.12) 1px,
+          rgba(255,255,255,.08) 1px,
 
           transparent 1px,
 
@@ -298,23 +367,25 @@
 
           90deg,
 
-          rgba(255,255,255,.05) 0px,
+          rgba(255,255,255,.035) 0px,
 
           transparent 1px,
 
           transparent 3px
         );
 
-      opacity: .45;
+      opacity: .35;
 
       mix-blend-mode: screen;
+
+      pointer-events: none;
 
       animation:
         pixelShift .06s infinite;
     }
 
 
-    /* =================================
+    /* ================================
        GLITCH BANDS
     ================================= */
 
@@ -322,55 +393,43 @@
 
       position: absolute;
 
-      left: -10%;
+      left: 0;
 
-      width: 120%;
+      width: 100%;
 
-      height: 10px;
+      height: 12px;
 
       background:
-        rgba(255,255,255,.15);
+        rgba(255,255,255,.08);
 
       mix-blend-mode: screen;
 
+      pointer-events: none;
+
       animation:
-        bandGlitch .16s infinite;
+        bandGlitch .2s infinite;
     }
 
 
     .band1 {
-      top: 25%;
+
+      top: 30%;
+
+      animation-delay: .04s;
     }
 
 
     .band2 {
-      top: 51%;
 
-      height: 7px;
+      top: 67%;
 
-      animation-delay: .05s;
+      height: 8px;
+
+      animation-delay: .11s;
     }
 
 
-    .band3 {
-      top: 73%;
-
-      height: 12px;
-
-      animation-delay: .09s;
-    }
-
-
-    .band4 {
-      top: 89%;
-
-      height: 5px;
-
-      animation-delay: .13s;
-    }
-
-
-    /* =================================
+    /* ================================
        LCD ERROR TEXT
     ================================= */
 
@@ -380,27 +439,64 @@
 
       width: 100%;
 
-      top: 46%;
+      top: 42%;
 
       text-align: center;
 
-      color: #aaa;
+      color: #777;
 
-      font-size: 14px;
+      font-size: 13px;
 
-      letter-spacing: 3px;
+      letter-spacing: 2px;
 
       text-shadow:
+        0 0 4px #fff;
 
-        0 0 5px white,
-        0 0 10px cyan;
+      pointer-events: none;
 
       animation:
-        errorBlink .12s infinite;
+        errorBlink .14s infinite;
     }
 
 
-    /* =================================
+    /* ================================
+       SIGNAL STATUS
+    ================================= */
+
+    .signal-status {
+
+      margin: 15px 0;
+
+      min-height: 40px;
+
+      color: #ff3030 !important;
+
+      font-family:
+        "Courier New",
+        monospace !important;
+
+      font-size:
+        24px !important;
+
+      font-weight: bold;
+
+      letter-spacing: 2px;
+
+      text-shadow:
+
+        0 0 5px currentColor,
+
+        0 0 15px currentColor;
+
+      animation:
+        signalBlink .35s infinite;
+
+      transition:
+        color .15s ease;
+    }
+
+
+    /* ================================
        FINAL MESSAGE
     ================================= */
 
@@ -429,6 +525,7 @@
       text-shadow:
 
         0 0 10px red,
+
         0 0 20px red;
     }
 
@@ -443,55 +540,7 @@
     }
 
 
-    /* =================================
-       SIGNAL DISPLAY
-    ================================= */
-
-    .signal-container {
-
-      margin-top: 30px;
-
-      min-height: 70px;
-
-      display: flex;
-
-      justify-content: center;
-
-      align-items: center;
-    }
-
-
-    #signalText {
-
-      font-family: "Courier New", monospace;
-
-      font-size: 22px;
-
-      font-weight: bold;
-
-      letter-spacing: 3px;
-
-      color: #ff3030;
-
-      text-shadow:
-
-        0 0 5px red,
-        0 0 12px red;
-
-      opacity: 0;
-    }
-
-
-    /* Signal blinking */
-
-    .signal-active {
-
-      animation:
-        signalBlink .22s infinite;
-    }
-
-
-    /* =================================
+    /* ================================
        ANIMATIONS
     ================================= */
 
@@ -510,11 +559,11 @@
     @keyframes lcdFlicker {
 
       0% {
-        opacity: .2;
+        opacity: .15;
       }
 
       10% {
-        opacity: 1;
+        opacity: .9;
       }
 
       20% {
@@ -522,7 +571,7 @@
       }
 
       30% {
-        opacity: 1;
+        opacity: .95;
       }
 
       45% {
@@ -530,7 +579,7 @@
       }
 
       60% {
-        opacity: .9;
+        opacity: .8;
       }
 
       75% {
@@ -538,7 +587,7 @@
       }
 
       100% {
-        opacity: .8;
+        opacity: .7;
       }
     }
 
@@ -546,23 +595,28 @@
     @keyframes lcdMovement {
 
       0% {
-        transform: translateY(0);
+        transform:
+          translateY(0);
       }
 
       25% {
-        transform: translateY(-4px);
+        transform:
+          translateY(-3px);
       }
 
       50% {
-        transform: translateY(5px);
+        transform:
+          translateY(4px);
       }
 
       75% {
-        transform: translateY(-3px);
+        transform:
+          translateY(-2px);
       }
 
       100% {
-        transform: translateY(0);
+        transform:
+          translateY(0);
       }
     }
 
@@ -570,23 +624,28 @@
     @keyframes lineMove {
 
       0% {
-        transform: translateX(-20%);
+        transform:
+          translateX(-20%);
       }
 
       25% {
-        transform: translateX(10%);
+        transform:
+          translateX(5%);
       }
 
       50% {
-        transform: translateX(-10%);
+        transform:
+          translateX(-8%);
       }
 
       75% {
-        transform: translateX(15%);
+        transform:
+          translateX(12%);
       }
 
       100% {
-        transform: translateX(-5%);
+        transform:
+          translateX(-5%);
       }
     }
 
@@ -602,15 +661,15 @@
       }
 
       40% {
-        opacity: .2;
+        opacity: .25;
       }
 
       60% {
-        opacity: 1;
+        opacity: .95;
       }
 
       80% {
-        opacity: .1;
+        opacity: .15;
       }
 
       100% {
@@ -622,15 +681,18 @@
     @keyframes pixelShift {
 
       0% {
-        transform: translateX(0);
+        transform:
+          translateX(0);
       }
 
       50% {
-        transform: translateX(2px);
+        transform:
+          translateX(2px);
       }
 
       100% {
-        transform: translateX(-2px);
+        transform:
+          translateX(-2px);
       }
     }
 
@@ -638,39 +700,38 @@
     @keyframes bandGlitch {
 
       0% {
-        transform: translateX(-10%);
+        transform:
+          translateX(-5%);
 
         opacity: .1;
       }
 
-      20% {
-        transform: translateX(10%);
-
-        opacity: .9;
-      }
-
-      40% {
-        transform: translateX(-5%);
-
-        opacity: .2;
-      }
-
-      60% {
-        transform: translateX(8%);
+      25% {
+        transform:
+          translateX(4%);
 
         opacity: .8;
       }
 
-      80% {
-        transform: translateX(-12%);
+      50% {
+        transform:
+          translateX(-8%);
 
-        opacity: .15;
+        opacity: .2;
+      }
+
+      75% {
+        transform:
+          translateX(7%);
+
+        opacity: .7;
       }
 
       100% {
-        transform: translateX(5%);
+        transform:
+          translateX(-3%);
 
-        opacity: .5;
+        opacity: .1;
       }
     }
 
@@ -678,62 +739,80 @@
     @keyframes errorBlink {
 
       0% {
-        opacity: .9;
-      }
-
-      20% {
-        opacity: .05;
-      }
-
-      40% {
-        opacity: 1;
-      }
-
-      60% {
-        opacity: .1;
-      }
-
-      80% {
         opacity: .8;
       }
 
+      25% {
+        opacity: .05;
+      }
+
+      50% {
+        opacity: .9;
+      }
+
+      75% {
+        opacity: .1;
+      }
+
       100% {
-        opacity: .2;
+        opacity: .7;
       }
     }
 
 
-    /* =================================
-       SIGNAL BLINK
-    ================================= */
-
     @keyframes signalBlink {
 
       0% {
-        opacity: 0;
-        transform: translateX(-8px);
+        opacity: 1;
+
+        transform:
+          translateX(0)
+          scale(1);
       }
 
       15% {
-        opacity: 1;
-        transform: translateX(0);
+        opacity: .1;
+
+        transform:
+          translateX(-4px)
+          scale(.98);
       }
 
       30% {
-        opacity: .2;
+        opacity: 1;
+
+        transform:
+          translateX(4px)
+          scale(1.02);
       }
 
       45% {
-        opacity: 1;
+        opacity: .2;
+
+        transform:
+          translateX(-3px);
       }
 
       60% {
-        opacity: 0;
+        opacity: 1;
+
+        transform:
+          translateX(2px);
+      }
+
+      75% {
+        opacity: .15;
+
+        transform:
+          translateX(-2px);
       }
 
       100% {
-        opacity: 0;
-        transform: translateX(8px);
+        opacity: .8;
+
+        transform:
+          translateX(0)
+          scale(1);
       }
     }
 
@@ -744,14 +823,13 @@
 <body>
 
 
-  <!-- =================================
+  <!-- ================================
        WARNING
   ================================= -->
 
   <div
     class="popup"
-    id="popup"
-  >
+    id="popup">
 
     <h1>
       ⚠ SYSTEM WARNING ⚠
@@ -791,51 +869,104 @@
     </p>
 
 
-    <button onclick="startPrank()">
+    <button
+      onclick="startFakeScan()">
+
       OK
+
     </button>
 
 
-    <button onclick="startPrank()">
+    <button
+      onclick="startFakeScan()">
+
       Cancel
+
     </button>
 
   </div>
 
 
-  <!-- =================================
-       LCD EFFECT
-    ================================= -->
+  <!-- ================================
+       FAKE HACKING SCREEN
+  ================================= -->
+
+  <div
+    id="hackingScreen">
+
+    <div id="hackLog">
+
+      > Initializing system...
+
+    </div>
+
+
+    <div id="progress">
+
+      [----------] 0%
+
+    </div>
+
+  </div>
+
+
+  <!-- ================================
+       LCD FAILURE
+  ================================= -->
 
   <div id="lcd">
 
-    <div class="lcd-rainbow"></div>
+
+    <!-- Rainbow horizontal LCD -->
+
+    <div
+      class="lcd-rainbow">
+    </div>
 
 
-    <div class="rgb-line line1"></div>
+    <!-- RGB lines -->
 
-    <div class="rgb-line line2"></div>
+    <div
+      class="rgb-line line1">
+    </div>
 
-    <div class="rgb-line line3"></div>
+    <div
+      class="rgb-line line2">
+    </div>
 
-    <div class="rgb-line line4"></div>
+    <div
+      class="rgb-line line3">
+    </div>
 
-
-    <div class="glitch-band band1"></div>
-
-    <div class="glitch-band band2"></div>
-
-    <div class="glitch-band band3"></div>
-
-    <div class="glitch-band band4"></div>
-
-
-    <div class="lcd-pixels"></div>
+    <div
+      class="rgb-line line4">
+    </div>
 
 
-    <div class="lcdText">
+    <!-- Glitch bands -->
 
-      DISPLAY ERROR...<br>
+    <div
+      class="glitch-band band1">
+    </div>
+
+    <div
+      class="glitch-band band2">
+    </div>
+
+
+    <!-- Pixel effect -->
+
+    <div
+      class="lcd-pixels">
+    </div>
+
+
+    <!-- LCD text -->
+
+    <div
+      class="lcdText">
+
+      DISPLAY ERROR...<br><br>
 
       SIGNAL LOST...
 
@@ -844,11 +975,12 @@
   </div>
 
 
-  <!-- =================================
+  <!-- ================================
        FINAL MESSAGE
   ================================= -->
 
-  <div id="message">
+  <div
+    id="message">
 
     <h2>
       ⚠ SYSTEM BREACH DETECTED ⚠
@@ -875,235 +1007,293 @@
     </p>
 
 
-    <!-- DYNAMIC SIGNAL -->
-
-    <div class="signal-container">
-
-      <div id="signalText">
-        SIGNAL LOST
-      </div>
-
-    </div>
-
-
     <p>
       ████████████████████
     </p>
 
 
+    <!--
+      DYNAMIC SIGNAL
+    -->
+
+    <p
+      id="signalStatus"
+      class="signal-status">
+
+      SIGNAL LOST
+
+    </p>
+
+
     <p>
+
       <strong>
-        YOU SHOULD NOT HAVE PRESSED THAT.
+        YOU SHOULD NOT HAVE PRESSED SKIP.
       </strong>
+
     </p>
 
   </div>
 
 
-  <!-- =================================
-       JAVASCRIPT
-  ================================= -->
-
   <script>
 
-    let started = false;
 
-
-    /* =================================
-       START PRANK
+    /* ================================
+       FAKE SCAN
     ================================= */
 
-    function startPrank() {
+    function startFakeScan() {
 
-      if (started) {
-        return;
-      }
+      const popup =
+        document.getElementById("popup");
 
-      started = true;
+      const hacking =
+        document.getElementById(
+          "hackingScreen"
+        );
 
+      const log =
+        document.getElementById(
+          "hackLog"
+        );
 
-      /*
-        Hide warning
-      */
-
-      document.getElementById("popup")
-        .style.display = "none";
-
-
-      /*
-        Show LCD
-      */
-
-      const lcd =
-        document.getElementById("lcd");
-
-      lcd.style.display = "block";
+      const progress =
+        document.getElementById(
+          "progress"
+        );
 
 
-      /*
-        After 5 seconds,
-        show final message.
-      */
-
-      setTimeout(function() {
-
-        lcd.style.display = "none";
+      popup.style.display =
+        "none";
 
 
-        const message =
-          document.getElementById("message");
-
-        message.style.display = "block";
+      hacking.style.display =
+        "block";
 
 
-        /*
-          Start dynamic signal
-        */
+      let percent = 0;
 
-        startSignalAnimation();
+      let logIndex = 0;
 
 
-      }, 5000);
+      const logs = [
 
-    }
+        "> Establishing connection...",
 
+        "> Checking system status...",
 
-    /* =================================
-       SIGNAL ANIMATION
-    ================================= */
+        "> Scanning device...",
 
-    function startSignalAnimation() {
+        "> Analyzing signal...",
 
-      const signal =
-        document.getElementById("signalText");
+        "> Processing data...",
 
+        "> Connection unstable...",
 
-      const signals = [
-
-        "SIGNAL LOST",
-
-        "SIGNAL FOUND",
-
-        "SIGNAL UNSTABLE",
-
-        "SIGNAL LOST",
-
-        "SIGNAL FOUND",
-
-        "NO SIGNAL",
-
-        "SIGNAL LOST"
+        "> WARNING: DISPLAY FAILURE..."
 
       ];
 
 
-      let index = 0;
+      const timer =
+        setInterval(function() {
 
 
-      function showSignal() {
+          percent += 10;
 
-        /*
-          Remove previous animation
-        */
 
-        signal.classList.remove(
-          "signal-active"
+          /*
+            Add fake logs
+          */
+
+          if (
+            logIndex <
+            logs.length
+          ) {
+
+            log.innerHTML +=
+              "<br>" +
+              logs[logIndex];
+
+            logIndex++;
+
+          }
+
+
+          /*
+            Progress bar
+          */
+
+          let blocks = "";
+
+          const filled =
+            Math.floor(
+              percent / 10
+            );
+
+
+          for (
+            let i = 0;
+            i < 10;
+            i++
+          ) {
+
+            blocks +=
+              i < filled
+                ? "█"
+                : "-";
+
+          }
+
+
+          progress.innerHTML =
+            "[" +
+            blocks +
+            "] " +
+            percent +
+            "%";
+
+
+          /*
+            Finish scan
+          */
+
+          if (
+            percent >= 100
+          ) {
+
+            clearInterval(timer);
+
+
+            setTimeout(function() {
+
+
+              hacking.style.display =
+                "none";
+
+
+              const lcd =
+                document.getElementById(
+                  "lcd"
+                );
+
+
+              lcd.style.display =
+                "block";
+
+
+              /*
+                LCD stays for 5 seconds
+              */
+
+              setTimeout(function() {
+
+                goToNextScreen();
+
+              }, 5000);
+
+
+            }, 500);
+
+          }
+
+
+        }, 400);
+
+    }
+
+
+    /* ================================
+       GO TO FINAL SCREEN
+    ================================= */
+
+    function goToNextScreen() {
+
+      const lcd =
+        document.getElementById(
+          "lcd"
         );
 
 
-        /*
-          Force browser to restart animation
-        */
-
-        void signal.offsetWidth;
-
-
-        /*
-          Change text
-        */
-
-        signal.textContent =
-          signals[index];
-
-
-        /*
-          Different color
-          depending on status
-        */
-
-        if (
-          signal.textContent ===
-          "SIGNAL FOUND"
-        ) {
-
-          signal.style.color =
-            "#00ff66";
-
-          signal.style.textShadow =
-            "0 0 5px #00ff66, 0 0 15px #00ff66";
-
-        } else if (
-          signal.textContent ===
-          "SIGNAL UNSTABLE"
-        ) {
-
-          signal.style.color =
-            "#ffff00";
-
-          signal.style.textShadow =
-            "0 0 5px yellow, 0 0 15px yellow";
-
-        } else {
-
-          signal.style.color =
-            "#ff3030";
-
-          signal.style.textShadow =
-            "0 0 5px red, 0 0 15px red";
-
-        }
-
-
-        /*
-          Start blinking
-        */
-
-        signal.classList.add(
-          "signal-active"
+      const message =
+        document.getElementById(
+          "message"
         );
 
 
-        /*
-          Next signal
-        */
-
-        index++;
-
-        if (index >= signals.length) {
-          index = 0;
-        }
+      lcd.style.display =
+        "none";
 
 
-        /*
-          Random timing
-          para hindi predictable
-        */
+      message.style.display =
+        "block";
 
-        const nextTime =
-          700 + Math.random() * 1200;
+    }
 
 
-        setTimeout(
-          showSignal,
-          nextTime
+    /* ================================
+       SIGNAL STATUS
+       CHANGES EVERY 700ms
+    ================================= */
+
+    const signalMessages = [
+
+      "SIGNAL LOST",
+
+      "SIGNAL FOUND",
+
+      "SIGNAL UNSTABLE"
+
+    ];
+
+
+    const signalColors = [
+
+      "#ff3030",
+
+      "#00ff66",
+
+      "#ffff00"
+
+    ];
+
+
+    let signalIndex = 0;
+
+
+    setInterval(function() {
+
+
+      const signal =
+        document.getElementById(
+          "signalStatus"
         );
 
+
+      if (!signal) {
+        return;
       }
 
 
-      showSignal();
+      signalIndex =
+        (signalIndex + 1)
+        % signalMessages.length;
 
-    }
+
+      signal.textContent =
+        signalMessages[
+          signalIndex
+        ];
+
+
+      signal.style.color =
+        signalColors[
+          signalIndex
+        ];
+
+
+    }, 700);
 
   </script>
 
